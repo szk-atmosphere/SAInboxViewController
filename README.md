@@ -49,33 +49,33 @@ Those ViewControllers have `UITableView`, so implement ordinary `UITableView` be
 If you use `UITableViewDelegate` in ViewController which extends `SAInboxDetailViewController`, please call super methods for below two methods.
 
 ```swift
-	override func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        super.scrollViewDidEndDragging(scrollView, willDecelerate: decelerate)
-    }
-    
-    override func scrollViewDidScroll(scrollView: UIScrollView) {
-    	super.scrollViewDidScroll(scrollView)
-    }
+override func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+    super.scrollViewDidEndDragging(scrollView, willDecelerate: decelerate)
+}
+
+override func scrollViewDidScroll(scrollView: UIScrollView) {
+	super.scrollViewDidScroll(scrollView)
+}
 ```
 
 If you want to present ViewController from rootViewController, implement `func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)` like this.
 
 ```swift
-	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let viewController = SAInboxDetailViewController()
-        if let cell = tableView.cellForRowAtIndexPath(indexPath), cells = tableView.visibleCells() as? [UITableViewCell] {
-            SAInboxAnimatedTransitioningController.sharedInstance().configureCotainerView(view, cell: cell, cells: cells, headerImage: headerView.screenshotImage())
-        }        
-        navigationController?.pushViewController(viewController, animated: true)
-    }
+func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    let viewController = SAInboxDetailViewController()
+    if let cell = tableView.cellForRowAtIndexPath(indexPath), cells = tableView.visibleCells() as? [UITableViewCell] {
+        SAInboxAnimatedTransitioningController.sharedInstance().configureCotainerView(view, cell: cell, cells: cells, headerImage: headerView.screenshotImage())
+    }        
+    navigationController?.pushViewController(viewController, animated: true)
+}
 ```
 
 Implement `UINavigationControllerDelegate` methods, like this.
 
 ```swift
-	func navigationController(navigationController: UINavigationController, animationControllerForOperation operation: UINavigationControllerOperation, fromViewController fromVC: UIViewController, toViewController toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        return SAInboxAnimatedTransitioningController.sharedInstance().setOperation(operation)
-    }
+func navigationController(navigationController: UINavigationController, animationControllerForOperation operation: UINavigationControllerOperation, fromViewController fromVC: UIViewController, toViewController toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    return SAInboxAnimatedTransitioningController.sharedInstance().setOperation(operation)
+}
 ```
 
 ## Requirements
